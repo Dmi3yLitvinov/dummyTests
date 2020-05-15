@@ -1,6 +1,7 @@
 package dummy.dao;
 
 import dummy.model.Person;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +11,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ParsonRepositoryTest {
+public class PersonRepositoryTest {
 
     @Autowired
-    private ParsonRepository personRepository;
+    private PersonRepository personRepository;
+
+    @Before
+    public void init() {
+        Person person = getPerson(1L);
+        personRepository.save(person);
+    }
 
     @Test
     public void addTest(){
         Long id = 1L;
-        Person person = getPerson(1L);
-        personRepository.save(person);
         Person one = personRepository.findOne(id);
-        System.out.println(one);
+        assertEquals(id, one.getId());
     }
 
     private Person getPerson(Long id) {
