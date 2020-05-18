@@ -21,4 +21,8 @@ public class PersonService {
         LocalDate minDateOfBirth = LocalDate.now().minus(VOTE_AGE, ChronoUnit.YEARS);
         return person.getDateOfBirth().isBefore(minDateOfBirth);
     }
+
+    public Person findPerson(Long personId) {
+        return personRepository.findOne(personId);
+    }
 }
